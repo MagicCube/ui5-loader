@@ -1,0 +1,28 @@
+{
+  "name": "ui5-loader",
+  "version": "1.0.0",
+  "description": "An UNOFFICIAL experimental Webpack loader for SAP UI5. Together with my Babel plugin(https://github.com/MagicCube/babel-plugin-ui5), you are abel to use Webpack + Babel to build your next generation UI5 applications.",
+  "main": "index.js",
+  "keywords": [
+    "ui5",
+    "sap",
+    "sapui5",
+    "openui5",
+    "webpack",
+    "loader"
+  ],
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MagicCube/ui5-loader.git"
+  },
+  "author": "Henry Li <henry.li03@sap.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MagicCube/ui5-loader/issues"
+  },
+  "homepage": "https://github.com/MagicCube/ui5-loader#readme",
+  "dependencies": {
+    "loader-utils": "^0.2.15"
+  }
+}
