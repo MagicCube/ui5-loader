@@ -46,13 +46,19 @@ function resolveModule(modulePath, sourceFilename)
     }
     if (fs.existsSync(absPath))
     {
-        return absPath;
+        let relativePath = path.relative(path.dirname(sourceFilename), absPath);
+        if (!relativePath.startsWith("."))
+        {
+            relativePath = "./" + relativePath;
+        }
+        relativePath = relativePath.replace(/\\/g, "/");
+        return relativePath;
     }
     else
     {
-        if (!modulePath.startsWith("sap/ui/"))
+        if (!modulePath.startsWith("sap/ui/base"))
         {
-            console.warn(`WARN: Dependency "${modulePath}" of "${path.relative(sourceRoot, sourceFilename)}" is not found in "${sourceRoot}".`);
+            console.warn(`WARN: Dependency "${modulePath}" of "${path.relative(sourceRoot, sourceFilename)}" is not found in ${sourceRoot}.`);
         }
         return null;
     }
