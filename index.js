@@ -10,27 +10,43 @@ function ui5Loader(source)
 {
     this.cacheable();
 
-    loaderOptions = loaderUtils.parseQuery(this.query);
+    if (!source)
+    {
+        return this.callback(null, source);
+    }
 
+    loaderOptions = loaderUtils.parseQuery(this.query);
+    if (!loaderOptions.sourceRoot)
+    {
+        loaderOptions.sourceRoot = "./";
+    }
     const webpackRemainingChain = loaderUtils.getRemainingRequest(this).split('!');
     const filename = webpackRemainingChain[webpackRemainingChain.length - 1];
 
-    const definePart = source.match(/sap\.ui\.define\(".+]/)[0];
-    if (!definePart.endsWith("[]"))
+    let groups = source.match(/sap\.ui\.define\(".+]/);
+    if (groups.length > 0)
     {
-        const group = definePart.match(/\[(.+)\]/)[1];
-        let dependencies = group.split(", ").map(d => d.replace(/"/g, ""));
-        const requires = [];
-
-        dependencies = dependencies.map(d => {
-            const absPath = resolveModule(d, filename);
-            if (absPath !== null)
+        const definePart = groups[0];
+        if (!definePart.endsWith("[]"))
+        {
+            groups = definePart.match(/\[(.+)\]/);
+            if (groups.length > 0)
             {
-                requires.push(`require("${absPath}");\n`);
-            }
-        });
+                const group = groups[1];
+                let dependencies = group.split(", ").map(d => d.replace(/"/g, ""));
+                const requires = [];
 
-        source = requires.join(";\n") + "\n" + source;
+                dependencies = dependencies.map(d => {
+                    const absPath = resolveModule(d, filename);
+                    if (absPath !== null)
+                    {
+                        requires.push(`require("${absPath}");\n`);
+                    }
+                });
+
+                source = requires.join(";\n") + "\n" + source;
+            }
+        }
     }
 
     this.callback(null, source);
