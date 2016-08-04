@@ -40,11 +40,11 @@ function ui5Loader(source, map)
                     const absPath = resolveModule(d, filename);
                     if (absPath !== null)
                     {
-                        requires.push(`require("${absPath}");\n`);
+                        requires.push(`require("${absPath}");`);
                     }
                 });
 
-                source = requires.join(";\n") + "\n" + source;
+                source = requires.join("") + source;
             }
         }
     }
