@@ -6,13 +6,13 @@ const loaderUtils = require("loader-utils");
 
 let loaderOptions = null;
 
-function ui5Loader(source)
+function ui5Loader(source, map)
 {
     this.cacheable();
 
     if (!source)
     {
-        return this.callback(null, source);
+        return this.callback(null, source, map);
     }
 
     loaderOptions = loaderUtils.parseQuery(this.query);
@@ -24,13 +24,13 @@ function ui5Loader(source)
     const filename = webpackRemainingChain[webpackRemainingChain.length - 1];
 
     let groups = source.match(/sap\.ui\.define\(".+]/);
-    if (groups.length > 0)
+    if (groups && groups.length > 0)
     {
         const definePart = groups[0];
         if (!definePart.endsWith("[]"))
         {
             groups = definePart.match(/\[(.+)\]/);
-            if (groups.length > 0)
+            if (groups && groups.length > 0)
             {
                 const group = groups[1];
                 let dependencies = group.split(", ").map(d => d.replace(/"/g, ""));
@@ -49,7 +49,7 @@ function ui5Loader(source)
         }
     }
 
-    this.callback(null, source);
+    this.callback(null, source, map);
 };
 
 function resolveModule(modulePath, sourceFilename)
