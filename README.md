@@ -1,3 +1,11 @@
+#FORE MORE INFORMATION, PLEASE VISIT
+[babel-preset-ui5](https://github.com/MagicCube/babel-preset-ui5)
+
+
+
+
+
+
 # ui5-loader
 An UNOFFICIAL experimental Webpack loader for SAP UI5. Together with my Babel
 plugin(https://github.com/MagicCube/babel-plugin-ui5), you are abel to use
