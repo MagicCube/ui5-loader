@@ -1,5 +1,4 @@
-#FORE MORE INFORMATION, PLEASE VISIT
-[babel-plugin-ui5](https://github.com/MagicCube/babel-plugin-ui5)
+#FORE MORE INFORMATION, PLEASE VISIT [babel-plugin-ui5](https://github.com/MagicCube/babel-plugin-ui5)
 
 
 
