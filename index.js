@@ -23,7 +23,7 @@ function ui5Loader(source, map)
     const webpackRemainingChain = loaderUtils.getRemainingRequest(this).split('!');
     const filename = webpackRemainingChain[webpackRemainingChain.length - 1];
 
-    let groups = source.match(/sap\.ui\.define\(".+]/);
+    let groups = source.match(/sap\.ui\.define\(["'].+]/);
     if (groups && groups.length > 0)
     {
         const definePart = groups[0];
@@ -33,7 +33,7 @@ function ui5Loader(source, map)
             if (groups && groups.length > 0)
             {
                 const group = groups[1];
-                let dependencies = group.split(", ").map(d => d.replace(/"/g, ""));
+                let dependencies = group.split(", ").map(d => d.replace(/["']/g, ""));
                 const requires = [];
 
                 dependencies = dependencies.map(d => {
